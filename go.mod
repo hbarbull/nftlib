@@ -1,5 +1,5 @@
-module com.hbarbull/hbarbullnft
+module github.com/hbarbull/nftlib
 
-go 1.15
+go 1.17
 
 require github.com/hashgraph/hedera-sdk-go/v2 v2.4.0
