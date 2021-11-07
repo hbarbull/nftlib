@@ -1,4 +1,4 @@
-package hbarbullnft
+package nftlib
 
 import (
 	"errors"

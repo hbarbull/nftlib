@@ -1,4 +1,4 @@
-package hbarbullnft
+package nftlib
 
 type NftMetadata struct {
 	Name        string         `json:"name"`
