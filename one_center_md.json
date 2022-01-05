@@ -1,0 +1,28 @@
+{
+  "name": "The One Center #001",
+  "description": {
+    "type": "string",
+    "description": "The One Cent Token Represents Hbar hitting the 10cent milestone"
+  },
+  "creator": "TheHbarBull",
+  "category": "Collectible",
+  "supply": 100,
+  "properties": {
+    "type": "object",
+    "description": {
+        "serial": "001",
+        "addOns": [
+        "vip-pass"
+        ]
+    }
+  },
+  "royalties": {
+    "numerator": 5,
+    "denominator": 100,
+    "fallbackFee": 100
+  },
+  "image": {
+    "type": "string",
+    "description": "https://cloudflare-ipfs.com/ipfs/bafkreidvavjnbzpfaeertb2qgykq2jctgz2vrlur6bq7rsjv2zbm6xdv2y"
+  }
+}
