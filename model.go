@@ -9,6 +9,32 @@ type NftMetadata struct {
 	Image       NftImage       `json:"image"`
 }
 
+type OneCenterMetadata struct {
+	Name        string                 `json:"name"`
+	Description NftDescription         `json:"description"`
+	Creator     string                 `json:"creator"`
+	Category    string                 `json:"category"`
+	Supply      int64                  `json:"supply"`
+	Properties  OneCenterNftProperties `json:"properties"`
+	Royalties   Royalties              `json:"royalties"`
+	Image       NftImage               `json:"image"`
+}
+
+type OneCenterNftProperties struct {
+	Type        string               `json:"type"`
+	Description OneCenterDescription `json:"description"`
+}
+
+type OneCenterDescription struct {
+	AddOns []string `json:"addons"`
+}
+
+type Royalties struct {
+	Numerator   int64 `json:"numerator"`
+	Denominator int64 `json:"denominator"`
+	FallBackFee int64 `json:"fallbackFee"`
+}
+
 type NftDescription struct {
 	Type        string `json:"type"`
 	Description string `json:"description"`

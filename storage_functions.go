@@ -46,6 +46,36 @@ func NewMetadata(name string, description string, creator string, category strin
 	}
 }
 
+func NewOneCenterMetadata(name string, description string, creator string,
+	category string, supply int64, image string, addons []string, royalties_numerator int64,
+	royalties_denominator int64, royalties_fallback int64) OneCenterMetadata {
+	return OneCenterMetadata{
+		Name: name,
+		Description: NftDescription{
+			Type:        "string",
+			Description: description,
+		},
+		Creator:  creator,
+		Category: category,
+		Supply:   supply,
+		Properties: OneCenterNftProperties{
+			Type: "object",
+			Description: OneCenterDescription{
+				AddOns: addons,
+			},
+		},
+		Royalties: Royalties{
+			Numerator:   0,
+			Denominator: 0,
+			FallBackFee: 0,
+		},
+		Image: NftImage{
+			Type:        "string",
+			Description: image,
+		},
+	}
+}
+
 func Ping() {
 	fmt.Println("Pong")
 }
