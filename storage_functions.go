@@ -65,9 +65,9 @@ func NewOneCenterMetadata(name string, description string, creator string,
 			},
 		},
 		Royalties: Royalties{
-			Numerator:   0,
-			Denominator: 0,
-			FallBackFee: 0,
+			Numerator:   royalties_numerator,
+			Denominator: royalties_denominator,
+			FallBackFee: royalties_fallback,
 		},
 		Image: NftImage{
 			Type:        "string",
