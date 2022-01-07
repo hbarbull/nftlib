@@ -51,6 +51,41 @@ func GetAccountBallance(client *hedera.Client, account_id string) (string, error
 	return strconv.FormatFloat(accountBalance.Hbars.As(hedera.HbarUnits.Hbar), 'f', 4, 64), nil
 }
 
+func CreateTokenWithRoyalty(client *hedera.Client, tokenName string, tokenSymbol string, maxSupply int64, r_num int64, r_denom int64, r_fallback int64) (string, error) {
+	royalities := []hedera.Fee{hedera.NewCustomRoyaltyFee().
+		SetFeeCollectorAccountID(client.GetOperatorAccountID()).
+		SetDenominator(r_denom).
+		SetNumerator(r_num).
+		SetFallbackFee(
+			hedera.NewCustomFixedFee().
+				SetFeeCollectorAccountID(client.GetOperatorAccountID()).
+				SetAmount(r_fallback),
+		),
+	}
+	tokenCreateTx, err := hedera.NewTokenCreateTransaction().
+		SetTokenName(tokenName).
+		SetTokenSymbol(tokenSymbol).
+		SetTokenType(hedera.TokenTypeNonFungibleUnique).
+		SetSupplyKey(client.GetOperatorPublicKey()).
+		SetSupplyType(hedera.TokenSupplyTypeFinite).
+		SetDecimals(0).
+		SetInitialSupply(0).
+		SetMaxSupply(maxSupply).
+		SetAdminKey(client.GetOperatorPublicKey()).
+		SetTreasuryAccountID(client.GetOperatorAccountID()).
+		SetCustomFees(royalities).
+		Execute(client)
+	if err != nil {
+		return "", err
+	}
+	rcpt, err := tokenCreateTx.GetReceipt(client)
+	if err != nil {
+		return "", err
+	}
+	newTokenId := rcpt.TokenID
+	return newTokenId.String(), nil
+}
+
 func CreateToken(client *hedera.Client, tokenName string, tokenSymbol string, maxSupply int64) (string, error) {
 	tokenCreateTx, err := hedera.NewTokenCreateTransaction().
 		SetTokenName(tokenName).
