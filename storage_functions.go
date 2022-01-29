@@ -29,7 +29,7 @@ func GetPhoto(photoPath string) (NftPhoto, error) {
 	case "image/png":
 		output = "data:image/png;base64,"
 	default:
-		return NftPhoto{}, errors.New("Not a supported mimetype: " + mimeType)
+		output = fmt.Sprintf("data:%s;base64,", mimeType)
 	}
 	output = output + base64.StdEncoding.EncodeToString(data)
 	return NftPhoto{Photo: output}, nil
