@@ -114,7 +114,7 @@ func UploadNft(photoPath string, name string, description string,
 
 func Upload(data interface{}, nftStorageKey string) (string, error) {
 	client := &http.Client{
-		Timeout: time.Second * 10,
+		Timeout: time.Second * 600,
 	}
 	jsonBytes, err := json.Marshal(data)
 	if err != nil {
