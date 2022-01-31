@@ -112,15 +112,11 @@ func UploadNft(photoPath string, name string, description string,
 	return cid2, nil
 }
 
-func Upload(data interface{}, nftStorageKey string) (string, error) {
+func UploadRaw(data []byte, nftStorageKey string) (string, error) {
 	client := &http.Client{
 		Timeout: time.Second * 600,
 	}
-	jsonBytes, err := json.Marshal(data)
-	if err != nil {
-		return "", err
-	}
-	req, err := http.NewRequest("POST", "https://api.nft.storage/upload", bytes.NewBuffer(jsonBytes))
+	req, err := http.NewRequest("POST", "https://api.nft.storage/upload", bytes.NewBuffer(data))
 	if err != nil {
 		return "", err
 	}
@@ -139,4 +135,13 @@ func Upload(data interface{}, nftStorageKey string) (string, error) {
 	} else {
 		return "", errors.New(string(body))
 	}
+
+}
+
+func Upload(data interface{}, nftStorageKey string) (string, error) {
+	jsonBytes, err := json.Marshal(data)
+	if err != nil {
+		return "", err
+	}
+	return UploadRaw(jsonBytes, nftStorageKey)
 }
