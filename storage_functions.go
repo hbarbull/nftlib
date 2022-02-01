@@ -138,6 +138,19 @@ func UploadRaw(data []byte, nftStorageKey string) (string, error) {
 
 }
 
+func UploadPhotoRaw(photoPath string, nftStorageKey string) (string, error) {
+	fh, err := os.Open(photoPath)
+	if err != nil {
+		return "", err
+	}
+	data, err := ioutil.ReadAll(fh)
+	if err != nil {
+		return "", err
+	}
+	return UploadRaw(data, nftStorageKey)
+
+}
+
 func Upload(data interface{}, nftStorageKey string) (string, error) {
 	jsonBytes, err := json.Marshal(data)
 	if err != nil {
