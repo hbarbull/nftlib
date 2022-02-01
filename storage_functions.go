@@ -38,11 +38,11 @@ func GetPhoto(photoPath string) (NftPhoto, error) {
 func NewMetadata(name string, description string, creator string, category string, supply int64, image string) NftMetadata {
 	return NftMetadata{
 		Name:        name,
-		Description: NftDescription{Type: "string", Description: description},
+		Description: description,
 		Creator:     creator,
 		Category:    category,
 		Supply:      supply,
-		Image:       NftImage{Type: "string", Description: image},
+		Image:       image,
 	}
 }
 
@@ -50,14 +50,11 @@ func NewOneCenterMetadata(name string, description string, creator string,
 	category string, supply int64, image string, addons []string, royalties_numerator int64,
 	royalties_denominator int64, royalties_fallback int64) OneCenterMetadata {
 	return OneCenterMetadata{
-		Name: name,
-		Description: NftDescription{
-			Type:        "string",
-			Description: description,
-		},
-		Creator:  creator,
-		Category: category,
-		Supply:   supply,
+		Name:        name,
+		Description: description,
+		Creator:     creator,
+		Category:    category,
+		Supply:      supply,
 		Properties: OneCenterNftProperties{
 			Type: "object",
 			Description: OneCenterDescription{
@@ -69,10 +66,7 @@ func NewOneCenterMetadata(name string, description string, creator string,
 			Denominator: royalties_denominator,
 			FallBackFee: royalties_fallback,
 		},
-		Image: NftImage{
-			Type:        "string",
-			Description: image,
-		},
+		Image: image,
 	}
 }
 

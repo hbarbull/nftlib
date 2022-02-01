@@ -1,23 +1,23 @@
 package nftlib
 
 type NftMetadata struct {
-	Name        string         `json:"name"`
-	Description NftDescription `json:"description"`
-	Creator     string         `json:"creator"`
-	Category    string         `json:"category"`
-	Supply      int64          `json:"supply"`
-	Image       NftImage       `json:"image"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Creator     string `json:"creator"`
+	Category    string `json:"category"`
+	Supply      int64  `json:"supply"`
+	Image       string `json:"image"`
 }
 
 type OneCenterMetadata struct {
 	Name        string                 `json:"name"`
-	Description NftDescription         `json:"description"`
+	Description string                 `json:"description"`
 	Creator     string                 `json:"creator"`
 	Category    string                 `json:"category"`
 	Supply      int64                  `json:"supply"`
 	Properties  OneCenterNftProperties `json:"properties"`
 	Royalties   Royalties              `json:"royalties"`
-	Image       NftImage               `json:"image"`
+	Image       string                 `json:"image"`
 }
 
 type OneCenterNftProperties struct {
