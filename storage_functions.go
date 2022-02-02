@@ -35,7 +35,7 @@ func GetPhoto(photoPath string) (NftPhoto, error) {
 	return NftPhoto{Photo: output}, nil
 }
 
-func NewMetadata(name string, description string, creator string, category string, supply int64, properties []interface{}, image string) NftMetadata {
+func NewMetadata(name string, description string, creator string, category string, supply int64, properties map[string]interface{}, image string) NftMetadata {
 	return NftMetadata{
 		Name:        name,
 		Description: description,
@@ -48,7 +48,7 @@ func NewMetadata(name string, description string, creator string, category strin
 }
 
 func NewMetadataWRoyalties(name string, description string, creator string,
-	category string, supply int64, properties []interface{}, image string,
+	category string, supply int64, properties map[string]interface{}, image string,
 	royalities_numerator int64, royalties_denominator int64, royalties_fallback int64) NftMetadataWRoyalties {
 	return NftMetadataWRoyalties{
 		Name:        name,
@@ -69,8 +69,8 @@ func NewMetadataWRoyalties(name string, description string, creator string,
 func NewOneCenterMetadata(name string, description string, creator string,
 	category string, supply int64, image string, addons []string, royalties_numerator int64,
 	royalties_denominator int64, royalties_fallback int64) OneCenterMetadata {
-	properties := make([]interface{}, 1)
-	properties[0] = addons
+	properties := make(map[string]interface{})
+	properties["addons"] = addons
 	return OneCenterMetadata{
 		Name:        name,
 		Description: description,
@@ -104,7 +104,7 @@ func UploadImage(photoPath string, nftStorageKey string) (string, error) {
 }
 
 func UploadNft(photoPath string, name string, description string,
-	creator string, category string, supply int64, properties []interface{}, nftStorageKey string) (string, error) {
+	creator string, category string, supply int64, properties map[string]interface{}, nftStorageKey string) (string, error) {
 	nftPhoto, err := GetPhoto(photoPath)
 	if err != nil {
 		return "", err
