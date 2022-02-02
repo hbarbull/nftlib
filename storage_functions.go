@@ -35,32 +35,49 @@ func GetPhoto(photoPath string) (NftPhoto, error) {
 	return NftPhoto{Photo: output}, nil
 }
 
-func NewMetadata(name string, description string, creator string, category string, supply int64, image string) NftMetadata {
+func NewMetadata(name string, description string, creator string, category string, supply int64, properties []interface{}, image string) NftMetadata {
 	return NftMetadata{
 		Name:        name,
 		Description: description,
 		Creator:     creator,
 		Category:    category,
 		Supply:      supply,
+		Properties:  properties,
 		Image:       image,
+	}
+}
+
+func NewMetadataWRoyalties(name string, description string, creator string,
+	category string, supply int64, properties []interface{}, image string,
+	royalities_numerator int64, royalties_denominator int64, royalties_fallback int64) NftMetadataWRoyalties {
+	return NftMetadataWRoyalties{
+		Name:        name,
+		Description: description,
+		Creator:     creator,
+		Category:    category,
+		Supply:      supply,
+		Properties:  properties,
+		Royalties: Royalties{
+			Numerator:   royalities_numerator,
+			Denominator: royalties_denominator,
+			FallBackFee: royalties_fallback,
+		},
+		Image: image,
 	}
 }
 
 func NewOneCenterMetadata(name string, description string, creator string,
 	category string, supply int64, image string, addons []string, royalties_numerator int64,
 	royalties_denominator int64, royalties_fallback int64) OneCenterMetadata {
+	properties := make([]interface{}, 1)
+	properties[0] = addons
 	return OneCenterMetadata{
 		Name:        name,
 		Description: description,
 		Creator:     creator,
 		Category:    category,
 		Supply:      supply,
-		Properties: OneCenterNftProperties{
-			Type: "object",
-			Description: OneCenterDescription{
-				AddOns: addons,
-			},
-		},
+		Properties:  properties,
 		Royalties: Royalties{
 			Numerator:   royalties_numerator,
 			Denominator: royalties_denominator,
@@ -87,7 +104,7 @@ func UploadImage(photoPath string, nftStorageKey string) (string, error) {
 }
 
 func UploadNft(photoPath string, name string, description string,
-	creator string, category string, supply int64, nftStorageKey string) (string, error) {
+	creator string, category string, supply int64, properties []interface{}, nftStorageKey string) (string, error) {
 	nftPhoto, err := GetPhoto(photoPath)
 	if err != nil {
 		return "", err
@@ -97,7 +114,7 @@ func UploadNft(photoPath string, name string, description string,
 		return "", err
 	}
 	imageUrl := fmt.Sprintf("https://cloudflare-ipfs.com/ipfs/%s", cid1)
-	imageMetaData := NewMetadata(name, description, creator, category, supply, imageUrl)
+	imageMetaData := NewMetadata(name, description, creator, category, supply, properties, imageUrl)
 	cid2, err := Upload(imageMetaData, nftStorageKey)
 	if err != nil {
 		return "", err

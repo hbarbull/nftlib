@@ -1,31 +1,38 @@
 package nftlib
 
 type NftMetadata struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Creator     string `json:"creator"`
-	Category    string `json:"category"`
-	Supply      int64  `json:"supply"`
-	Image       string `json:"image"`
+	Name        string        `json:"name"`
+	Description string        `json:"description"`
+	Creator     string        `json:"creator"`
+	Category    string        `json:"category"`
+	Supply      int64         `json:"supply"`
+	Properties  []interface{} `json:"properties"`
+	Image       string        `json:"image"`
+}
+
+type NftMetadataWRoyalties struct {
+	Name        string        `json:"name"`
+	Description string        `json:"description"`
+	Creator     string        `json:"creator"`
+	Category    string        `json:"category"`
+	Supply      int64         `json:"supply"`
+	Properties  []interface{} `json:"properties"`
+	Royalties   Royalties     `json:"royalties"`
+	Image       string        `json:"image"`
 }
 
 type OneCenterMetadata struct {
-	Name        string                 `json:"name"`
-	Description string                 `json:"description"`
-	Creator     string                 `json:"creator"`
-	Category    string                 `json:"category"`
-	Supply      int64                  `json:"supply"`
-	Properties  OneCenterNftProperties `json:"properties"`
-	Royalties   Royalties              `json:"royalties"`
-	Image       string                 `json:"image"`
+	Name        string        `json:"name"`
+	Description string        `json:"description"`
+	Creator     string        `json:"creator"`
+	Category    string        `json:"category"`
+	Supply      int64         `json:"supply"`
+	Properties  []interface{} `json:"properties"`
+	Royalties   Royalties     `json:"royalties"`
+	Image       string        `json:"image"`
 }
 
-type OneCenterNftProperties struct {
-	Type        string               `json:"type"`
-	Description OneCenterDescription `json:"description"`
-}
-
-type OneCenterDescription struct {
+type OneCenterPropertyAddons struct {
 	AddOns []string `json:"addons"`
 }
 
@@ -34,13 +41,6 @@ type Royalties struct {
 	Denominator int64 `json:"denominator"`
 	FallBackFee int64 `json:"fallbackFee"`
 }
-
-type NftDescription struct {
-	Type        string `json:"type"`
-	Description string `json:"description"`
-}
-
-type NftImage NftDescription
 
 type NftPhoto struct {
 	Photo string `json:"photo"`
